@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="index.css">
+</head> 
+
+<body>
+
+<h2>Tim's totally cool weather tracker</h2>
+
+<p>Page last loaded:</p>
+<p id="demo"></p>
+
+<script>
+	document.getElementById("demo").innerHTML = Date();
+</script>
+
+
+
+
+
+<!-- with correct API key -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script>
+jQuery(document).ready(function($) {
+  $.ajax({
+    url : "http://api.wunderground.com/api/96ba5e8d4235b8ae/geolookup/conditions/tide/q/RI/Narragansett_Pier.json",
+    dataType : "jsonp",
+    success : function(parsed_json) {
+
+
+    //basic data
+    var location = parsed_json['location']['city'];
+    var temp_f = parsed_json['current_observation']['temp_f'];
+    var weather = parsed_json['current_observation']['weather'];
+    var wind_mph = parsed_json['current_observation']['wind_mph'];
+    var wind_dir = parsed_json['current_observation']['wind_dir'];
+
+
+    //dunno what magic is but they give it a value
+    var magic = parsed_json['location']['magic'];
+
+
+    //ATTEMPTING TO GET TIDE INFO
+    var len = parsed_json.length;
+
+    //array of tide condition
+    var tideData = [];
+
+    for(var i = 0; i<parsed_json.tide.tideSummary.length; i++){
+      tideData[i] = parsed_json.tide.tideSummary[i].data.type;
+    }
+
+    // array of tide height
+    var tideHeight =[];
+
+      for(var i = 0; i<parsed_json.tide.tideSummary.length; i++){
+      tideHeight[i] = parsed_json.tide.tideSummary[i].data.height;
+    }
+
+    var utcDate = [];
+
+      for(var i = 0; i<parsed_json.tide.tideSummary.length; i++){
+      utcDate[i] = parsed_json.tide.tideSummary[i].date.pretty;
+    }
+
+
+    //alert on page to display info
+    alert("Current temperature in " + location + " is: " + temp_f + "f" + "\n" +
+    		"Weather is " + weather + " near the shore." + "\n" +
+            "Wind, "+ wind_dir + " at " + wind_mph + "mph." + "\n" +
+            tideData[0] + " at "+ tideHeight[0] + ".");
+
+    //test output if code works
+    $("<b>hi</b>").appendTo( "body");
+
+
+    document.getElementById("currentTemp").innerHTML = temp_f + '&#8457;';
+    document.getElementById("currentSky").innerHTML = weather;
+    document.getElementById("currentWind").innerHTML =   + wind_mph + " mph " + wind_dir;
+    document.getElementById("currentTide").innerHTML = tideData[0];
+    document.getElementById("currentWave").innerHTML = tideHeight[0];
+
+
+    var broReport = "gogogo";
+    function BroTracker(tideHeight){
+        if(tideHeight[0]>=.5){
+            broReport = "SURF'S UP!!!";
+            return broReport;
+        }
+        else{
+            broReport = "The surf sucks right now";
+            return broReport;
+        }
+    }
+
+    document.getElementById("broReport").innerHTML = BroTracker(tideHeight[0]);
+    //document.getElementById("currentHeight").innerHTML = tideHeight[0];
+
+    document.getElementById("time1").innerHTML = utcDate[1];
+    document.getElementById("time2").innerHTML = utcDate[2];
+    document.getElementById("time3").innerHTML = utcDate[3];
+    document.getElementById("time4").innerHTML = utcDate[4];
+    document.getElementById("time5").innerHTML = utcDate[5];
+
+    document.getElementById("surf1").innerHTML = tideHeight[1];
+    document.getElementById("surf2").innerHTML = tideHeight[2];
+    document.getElementById("surf3").innerHTML = tideHeight[3];
+    document.getElementById("surf4").innerHTML = tideHeight[4];
+    document.getElementById("surf5").innerHTML = tideHeight[5];
+
+
+    }
+  });
+});
+
+</script>
+
+<!-- Table for weather data display-->
+<table>
+    <tr>
+        <td><strong>TEMP</strong></td>
+        <td id="currentTemp"></td>
+    </tr>
+      <tr>
+        <td><strong>SKY</strong></td>
+        <td id="currentSky"></td>
+    </tr>
+    <tr>
+        <td><strong>WIND</strong></td>
+        <td id="currentWind"></td>
+    </tr>
+    <tr>
+        <td><strong>TIDE</strong></td>
+        <td id="currentTide"></td>
+    </tr>
+     <tr>
+        <td><strong>WAVE</strong></td>
+        <td id="currentWave"></td>
+    </tr>
+</table>
+
+<p><strong>SURF REPORT:</strong></P>
+    
+<P id="broReport"></p>
+
+
+<img src="http://api.wunderground.com/api/96ba5e8d4235b8ae/animatedradar/animatedsatellite/q/RI/Narragansett.gif?num=8&delay=30&interval=60&" atl="image failed to load" style="width:360px;height:360px;">
+
+<p>Surf forcast</p>
+<table>
+   <tr>
+        <td id="time1"></td>
+        <td id="surf1"></td>
+   </tr>
+   <tr>
+        <td id="time2"></td>
+        <td id="surf2"></td>
+   </tr>
+   <tr>
+        <td id="time3"></td>
+        <td id="surf3"></td>
+   </tr>
+   <tr>
+        <td id="time4"></td>
+        <td id="surf4"></td>
+   </tr>
+   <tr>
+        <td id="time5"></td>
+        <td id="surf5"></td>
+   </tr>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div class="conditions"></div>
+
+
+
+</body>
+</html> 

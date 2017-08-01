@@ -1,0 +1,58 @@
+body {
+    background-color: grey;
+}
+
+h2 {
+    color: white;
+    text-align: left;
+}
+
+tr{
+	border-spacing: 0px;
+	color: white;
+}
+
+p {
+    font-family: verdana;
+    font-size: 20px;
+    color: white;
+}
+
+th, td {
+	border-spacing: 20px solid #ddd;
+}
+
+tr:nth-child(odd) {background-color: #606060}
+
+tr:hover:nth-child(odd) {background-color: #404040}
+
+tr:hover:nth-child(even) {background-color: #ff1493}
+
+#currentTemp {
+	font-family: Courier New;
+	text-align: right;
+}
+
+#currentSky {
+	font-family: Courier New;
+	text-align: right;
+}
+
+#currentWind {
+	font-family: Courier New;
+	text-align: right;
+}
+
+#currentTide {
+	font-family: Courier New;
+	text-align: right;
+}
+
+#currentWave {
+	font-family: Courier New;
+	text-align: right;
+}
+
+#broReport{
+	color:pink;
+}
