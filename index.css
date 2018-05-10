@@ -18,7 +18,7 @@ p {
     color: white;
 }
 
-th, td {
+table, th, td {
 	border-spacing: 20px solid #ddd;
 }
 
@@ -55,4 +55,18 @@ tr:hover:nth-child(even) {background-color: #ff1493}
 
 #broReport{
 	color:pink;
+}
+
+.center{
+	margin: auto;
+	width: 50%;
+	border: 3px dark-grey;
+	padding: 10px;
+}
+
+.floating-box{
+	float: right;
+	width: 400px;
+    margin: 10px;
+    border: 3px solid white; 
 }
